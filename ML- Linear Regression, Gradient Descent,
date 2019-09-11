@@ -1,0 +1,93 @@
+What is Machine Learning?
+Arthur Samuel described it as: "the field of study that gives computers the ability to learn without being explicitly programmed." This is an older, informal definition
+
+Any machine learning problem can be assigned to one of two broad classifications:
+
+supervised learning: In supervised learning, we are given a data set and already know what our correct output should look like, 
+                      having the idea that there is a relationship between the input and the output.
+
+                     Supervised learning problems are categorized into "regression" and "classification" problems. In a regression problem, we are trying to predict results within a continuous output, meaning that we are trying to map input variables to some continuous function. In a classification problem, we are instead trying to predict results in a discrete output. 
+                       In other words, we are trying to map input variables into discrete categories.
+                     Example 2:
+
+                     (a) Regression - Given a picture of Male/Female, We have to predict his/her age on the basis of given picture.
+                     (b) Classification - Given a picture of Male/Female, We have to predict Whether He/She is of High school, College, Graduate age. Another Example for Classification - Banks have to decide whether or not to give a loan to someone on the basis of his credit history.
+
+Unsupervised Learning
+                      Unsupervised learning, on the other hand, allows us to approach problems with little or no idea what our results should look like. 
+                      We can derive structure from data where we don't necessarily know the effect of the variables.
+                      We can derive this structure by clustering the data based on relationships among the variables in the data.
+
+                      With unsupervised learning there is no feedback based on the prediction results, i.e., there is no teacher to correct you.
+                      
+Example:
+
+Clustering: Take a collection of 1000 essays written on the US Economy, and find a way to automatically group these essays into a small number that are somehow similar or related by different variables, such as word frequency, sentence length, page count, and so on.
+
+Linear Regression with One Variable: Linear regression with one variable is also known as "univariate linear regression."
+                                     Univariate linear regression is used when you want to predict a single output value y
+                                     from a single input value x. We're doing supervised learning here, so that means we already
+                                     have an idea about what the input/output cause and effect should be.
+          The Hypothesis Function:
+                              Our hypothesis function has the general form:y^=hθ(x)=θ0+θ1x
+                              
+          Cost Function:  We can measure the accuracy of our hypothesis function by using a cost function. 
+                          This takes an average (actually a fancier version of an average) of all the results of the hypothesis 
+                          with inputs from x's compared to the actual output y's.
+
+                          J(θ0,θ1)=1/2m∑i=1m(y^i−yi)2=12m∑i=1m(hθ(xi)−yi)2 "squared error function" or "mean sqaured error"
+                          
+                          If we try to think of it in visual terms, our training data set is scattered on the x-y plane. We are trying to make straight line (defined by 
+                          h_\theta(x)hθ(x)) which passes through this scattered set of data. Our objective is to get the best possible line. The best possible line will be such so that the average squared vertical distances of the scattered points from the line will be the least. In the best case, the line
+                          should pass through all the points of our training data set. In such a case the value of J(\theta_0, \theta_1)J(θ0,θ1) will be 0.
+                          
+          Gradient Descent:So we have our hypothesis function and we have a way of measuring how well it fits into the data. 
+                            Now we need to estimate the parameters in hypothesis function. That's where gradient descent comes in.
+                            Imagine that we graph our hypothesis function based on its fields \theta_0θ 0 and \theta_1θ 1(actually we are graphing the cost function as a function of the parameter estimates). This can be kind of confusing; we are moving up to a higher level of abstraction. We are not graphing x and y itself, but the parameter range of our hypothesis function and the cost resulting from selecting particular set of parameters.
+                            We put \theta_0θ 0 on the x axis and \theta_1θ 1 on the y axis, with the cost function on the vertical z axis. The points on our graph will be the result of the cost function using our hypothesis with those specific theta parameters.
+                            We will know that we have succeeded when our cost function is at the very bottom of the pits in our graph, i.e. when its value is the minimum.
+                            The way we do this is by taking the derivative (the tangential line to a function) of our cost function. 
+                            The slope of the tangent is the derivative at that point and it will give us a direction to move towards. We make steps down the cost function in the direction with the steepest descent, and the size of each step is determined by the parameter α, which is called the learning rate.
+
+                            The gradient descent algorithm is:
+                            repeat until convergence:
+                            θj:=θj−α∂∂θjJ(θ0,θ1)
+                            where
+                            j=0,1 represents the feature index number.
+                            
+                            Intuitively, this could be thought of as:
+                            repeat until convergence:
+
+\theta_j := \theta_j - \alpha [\text{Slope of tangent aka derivative in j dimension}]θ 
+j
+​	 :=θ 
+j
+​	 −α[Slope of tangent aka derivative in j dimension][Slope of tangent aka derivative in j dimension]
+
+Gradient Descent for Linear Regression
+When specifically applied to the case of linear regression, a new form of the gradient descent equation can be derived. We can substitute our actual cost function and our actual hypothesis function and modify the equation to (the derivation of the formulas are out of the scope of this course, but a really great one can be found here):
+
+repeat until convergence: {θ0:=θ1:=}θ0−α1m∑i=1m(hθ(xi)−yi)θ1−α1m∑i=1m((hθ(xi)−yi)xi)
+where m is the size of the training set, \theta_0θ 
+0
+​	  a constant that will be changing simultaneously with \theta_1θ 
+1
+​	  and x_{i}, y_{i}x 
+i
+​	 ,y 
+i
+​	 are values of the given training set (data).
+
+Note that we have separated out the two cases for \theta_jθ 
+j
+​	  into separate equations for \theta_0θ 
+0
+​	  and \theta_1θ 
+1
+​	 ; and that for \theta_1θ 
+1
+​	  we are multiplying x_{i}x 
+i
+​	  at the end due to the derivative.
+
+The point of all this is that if we start with a guess for our hypothesis and then repeatedly apply these gradient descent equations, our hypothesis will become more and more accurate.
