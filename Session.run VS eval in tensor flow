@@ -20,3 +20,12 @@ with sess.as_default():
    ut.eval()  # runs one step
    sess.run([tu, ut])  # evaluates both tensors in a single step
 Note that each call to eval and run will execute the whole graph from scratch. To cache the result of a computation, assign it to a tf.Variable.
+
+
+Interactive Sessions
+You've previously implemented the overall cost  J(G)J(G) . We'll now set up TensorFlow to optimize this with respect to  GG .
+
+To do so, your program has to reset the graph and use an "Interactive Session".
+Unlike a regular session, the "Interactive Session" installs itself as the default session to build a graph.
+This allows you to run variables without constantly needing to refer to the session object (calling "sess.run()"), which simplifies the code.
+Start the interactive session.
