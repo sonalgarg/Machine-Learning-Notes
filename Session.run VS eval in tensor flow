@@ -1,0 +1,22 @@
+232
+
+If you have a Tensor t, calling t.eval() is equivalent to calling tf.get_default_session().run(t).
+
+You can make a session the default as follows:
+
+t = tf.constant(42.0)
+sess = tf.Session()
+with sess.as_default():   # or `with sess:` to close on exit
+    assert sess is tf.get_default_session()
+    assert t.eval() == sess.run(t)
+The most important difference is that you can use sess.run() to fetch the values of many tensors in the same step:
+
+t = tf.constant(42.0)
+u = tf.constant(37.0)
+tu = tf.mul(t, u)
+ut = tf.mul(u, t)
+with sess.as_default():
+   tu.eval()  # runs one step
+   ut.eval()  # runs one step
+   sess.run([tu, ut])  # evaluates both tensors in a single step
+Note that each call to eval and run will execute the whole graph from scratch. To cache the result of a computation, assign it to a tf.Variable.
